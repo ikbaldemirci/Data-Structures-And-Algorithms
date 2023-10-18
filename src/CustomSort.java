@@ -1,8 +1,73 @@
 import java.util.Scanner;
 
 public class CustomSort {
+
+    public static void Selection(int sarr[]) {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Okay, you selected Selection. Now;");
+        System.out.println("Press 1 for ASC, Press 0 for DESC");
+        Integer input1 = scanner.nextInt();
+        scanner.nextLine();
+
+        if(input1 == 1){
+            int n = sarr.length;		  
+	        for (int i = 0; i < n; i++){	        	
+	        	int min = i;	            
+	        	for (int j = i+1; j < n; j++)
+	                if (sarr[j] < sarr[min]) //alternate for less method
+	                    min = j;
+	            
+	            int temp2 = sarr[min];
+	            sarr[min] = sarr[i];
+	            sarr[i] = temp2;
+	        }
+            System.out.println("Ascending Order:");
+            for(int i=0; i<sarr.length; i++)
+                System.out.print(sarr[i] + " ");
+            System.out.println();
+        }else{
+            int n = sarr.length;		  
+	        for (int i = 0; i < n; i++){	        	
+	        	int min = i;	            
+	        	for (int j = i+1; j < n; j++)
+	                if (sarr[j] < sarr[min]) //alternate for less method
+	                    min = j;
+	            
+	            int temp2 = sarr[min];
+	            sarr[min] = sarr[i];
+	            sarr[i] = temp2;
+            }
+            System.out.println("Descending Order:");
+            for(int i=n-1; i>=0; i--)
+                System.out.print(sarr[i] + " ");
+            System.out.println();
+        }
+        scanner.close();	  
+    }
     
     // Custom Bubble Sort for ascending order
+
+    public static void Bubble(int[] arr){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Okay, you selected Bubble. Now;");
+        System.out.println("Press 1 for ASC, Press 0 for DESC");
+
+        Integer input2 = scanner.nextInt();
+        scanner.nextLine();
+
+        if(input2 == 1){
+            Ascending(arr);
+            System.out.println("Ascending Order: ");
+            printArray(arr);
+        }else{
+            Descending(arr);
+            System.out.println("Descending Order: ");
+            printArray(arr);
+        }
+        scanner.close();
+    }
+
     private static void Ascending(int[] arr) {
         int n = arr.length;
         for (int i = 0; i < n - 1; i++) {
@@ -32,20 +97,6 @@ public class CustomSort {
         }
     }
     
-    public static void Selection(int sarr[]) {
-		  int n = sarr.length;		  
-	        for (int i = 0; i < n; i++){	        	
-	        	int min = i;	            
-	        	for (int j = i+1; j < n; j++)
-	                if (sarr[j] < sarr[min]) //alternate for less method
-	                    min = j;
-	            
-	            int temp2 = sarr[min];
-	            sarr[min] = sarr[i];
-	            sarr[i] = temp2;
-	        }
-    }
-    
     // Utility method to print an array
     private static void printArray(int[] arr) {
         for (int num : arr) {
@@ -53,52 +104,33 @@ public class CustomSort {
         }
         System.out.println();
     }
-    
-    public static void main(String[] args) {
-    	
-    	
-        
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter integers separated by space that you want sort: ");
-                
-        String input = scanner.nextLine();
-        String[] numStrings = input.split(" ");
-        int[] arr = new int[numStrings.length];
 
+    public static void maincaller() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter integers seperated by space that you want to sort.");
+
+        // we can write imputs how many as we want
+        String sinput = scanner.nextLine();
+        String[] numStrings = sinput.split(" ");
+        int[] arr = new int[numStrings.length];
         try {
-            for (int i = 0; i < numStrings.length; i++) {
+            for(int i=0; i<numStrings.length; i++)
                 arr[i] = Integer.parseInt(numStrings[i]);
-            }
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter valid integers separated by space.");
+            System.err.println("Invalid input. Please enter valid integers seperated by one space.");
             //return;
         }
-        
-        
-        
-        Scanner scanner2 = new Scanner(System.in);
-        System.out.print("Press 1 for selection, press 0 for ASC&DESC");
-        
-        Integer input2 = scanner2.nextInt();
-        if (input2 == 1) {
-        	Selection(arr);
-        	System.out.println("Selection Sort:");
-        	printArray(arr);
-        }
-        else if(input2==0) {
-     // Sorting in ascending order
-        Ascending(arr);
-        System.out.println("Ascending Order:");
-        printArray(arr);
 
-        // Sorting in descending order
-        Descending(arr);
-        System.out.println("Descending Order:");
-        printArray(arr);
-        
-        
-    }
+        // after the inputs we must select our sort type
+        System.out.println("Press 1 for Selection, Press 0 for Buble Sort");
+        Integer input3 = scanner.nextInt();
+
+        if(input3==1)   Selection(arr);
+        else            Bubble(arr);
         scanner.close();
-        scanner2.close();    
-}
+    }
+    
+    public static void main(String[] args) {
+        maincaller();
+    }
 }
