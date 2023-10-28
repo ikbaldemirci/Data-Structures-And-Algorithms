@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class CustomSort {
-
     public static void Selection(int sarr[]) {
 
         Scanner scanner = new Scanner(System.in);
@@ -104,13 +103,11 @@ public class CustomSort {
         }
         System.out.println();
     }
-    
-    public static void main(String[] args) {
+
+    public static void req(){
+
         Scanner scanner = new Scanner(System.in);
         int n=0;
-        
-        
-
         while (n>=0) {
             
             System.out.println("Enter integers seperated by space that you want to sort.");
@@ -124,6 +121,7 @@ public class CustomSort {
                     arr[i] = Integer.parseInt(numStrings[i]);
             } catch (NumberFormatException e) {
                 System.err.println("Invalid input. Please enter valid integers seperated by one space.");
+                continue;
             }
 
             // after the inputs we must select our sort type
@@ -134,15 +132,39 @@ public class CustomSort {
             else            Bubble(arr);
 
             // when sorting is done, ask for again or not
-            System.out.println("Would you like terminate? (y/n)");
-            String input4 = scanner.next();
-            if(input4.equalsIgnoreCase("y")){
-                     n++; 
-                     main(args);
-            }
-            else if(input4.equalsIgnoreCase("n"))   n=-1;
-            //else System.err.println("Invalid input. Please enter 'y' or 'n' " ); //break;
+            
+            boolean validInput=false;
+
+            while(!validInput){
+                System.out.println("Would you like terminate? (y/n)");
+                String input4 = scanner.next();
+                scanner.nextLine();
+                Boolean ybBoolean =  input4.equalsIgnoreCase("y");
+                Boolean nBoolean = input4.equalsIgnoreCase("n");
+                if(ybBoolean){
+                    n++;
+                    validInput=true;
+                }
+                else if(nBoolean){
+                    n=-1;
+                    System.out.println("Thank you for participation.");
+                    validInput=true;
+                }   
+                
+                else {
+                    System.err.println("Invalid input. Please enter 'y' or 'n' " );
+                }
+                
+            }            
         }
         scanner.close();
+        
+    }
+    
+    public static void main(String[] args) {
+
+        req();
+        
+        
     }
 }
